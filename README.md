@@ -1,3 +1,0 @@
-# maze
-# maze
-# maze
