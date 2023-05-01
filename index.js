@@ -39,13 +39,59 @@ World.add(world,walls);
 
 // Maze generation
 
-const grid = Array(cells).fill(false).map(() => Array(cells).fill(false));
+const shuffle = (arr) => {
+    let counter = arr.length;
+
+    while ( counter > 0 ){
+        const index = Math.floor(Math.random() * counter);
+
+        counter--;
+
+        const temp = arr[counter];
+        arr[counter] = arr[index];
+        arr[index] = temp;
+    }
+    return arr;
+};
+
+const grid = Array(cells).fill(null).map(() => Array(cells).fill(false));
 
 const verticals = Array(cells).fill(null).map(() => Array(cells - 1).fill(false));
 
 const horizontals = Array(cells - 1).fill(null).map(() => Array(cells).fill(false));
 
-console.log(horizontals);
+const startRow = Math.floor(Math.random() * cells);
+const startColumn = Math.floor(Math.random() * cells);
 
+const stepThroughCell = (row, column) => {
+// if i have visited the cell at [row, column], then return. // IF grid at row and column is true 
+    if (grid[row] [column]) {
+        return;
+    }
+//Mark this cell as visited (it will go to the grid array and mark it as true because true = visited and false = not visited)
+    grid[row] [column] = true;
+//Assemble randomnly-ordered list of neigbhors
+const neighbors = shuffle([
+[row -1, column],
+[row, column +1],
+[row +1, column],
+[row, column -1],
+]);
+console.log(neighbors);
+
+// for each neighbor ...
+
+// See if that neighbor is out of bounds, if it checks outside the box itself 
+
+// If we have visited that neighbor, continue to the next neighbor 
+
+// Remove a wall from either horizontals or verticals 
+
+// visit the next cell 
+    
+
+};
+
+stepThroughCell(1, 1);
 
 
