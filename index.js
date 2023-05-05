@@ -30,10 +30,10 @@ Runner.run(Runner.create(), engine);
 
 // WALLS 
 const walls = [
-    Bodies.rectangle(width / 2, 0, width , 40 , { isStatic: true}),
-    Bodies.rectangle(width / 2, height, width, 40, {isStatic: true}),
-    Bodies.rectangle(0, height / 2, 40, width, {isStatic: true}),
-    Bodies.rectangle(width, height / 2, 40, height, {isStatic: true})
+    Bodies.rectangle(width / 2, 0, width , 2 , { isStatic: true}),
+    Bodies.rectangle(width / 2, height, width, 2, {isStatic: true}),
+    Bodies.rectangle(0, height / 2, 2, width, {isStatic: true}),
+    Bodies.rectangle(width, height / 2, 2, height, {isStatic: true})
 
 ];
 World.add(world,walls);
@@ -107,13 +107,51 @@ for (let neighbor of neighbors) {
 
 stepThroughCell(startRow, startColumn);
 
-horizontals.forEach((row) => {
-    row.forEach((open) => {
+horizontals.forEach((row, rowIndex) => {
+    row.forEach((open, columnIndex) => {
         if (open) {
             return;
         }
         
-        const wall = Bodies.rectangle();
+        const wall = Bodies.rectangle(
+            columnIndex * unitLength + unitLength / 2,   // ASTEA IS ARGUMENTS PENTRU CONSTRUIIREA PERETILOR 
+            rowIndex * unitLength + unitLength,
+            unitLength,
+            10,
+            {
+                isStatic: true
+            }
+        );
+            World.add(world, wall);
     });
 });
 
+ verticals.forEach((row, rowIndex) => {
+   row.forEach((open, columnIndex) => {
+    if (open) {
+        return;
+    }
+
+        const wall = Bodies.rectangle(
+            columnIndex * unitLength + unitLength,
+            rowIndex * unitLength + unitLength / 2, 
+            10,
+            unitLength,
+            {
+                isStatic: true
+            }
+        );
+        World.add(world, wall);
+    });
+ });
+
+ const goal = Bodies.rectangle(
+    width - unitLength / 2,
+    height - unitLength / 2,
+    unitLength * .7,
+    unitLength * .7,
+    {
+        isStatic: true
+    }
+ );
+ World.add(world,goal);
